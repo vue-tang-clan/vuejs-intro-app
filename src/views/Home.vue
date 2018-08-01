@@ -11,8 +11,10 @@
 
     <h1>Reviews</h1>
     <ul>
-      <li v-for="review in reviews">
-        {{ review.rating }}: {{ review.text }} - by {{ review.reviewer }}
+      <li v-for="review in reviews" v-on:click="deleteReview(review)">
+        <div v-if="review.text.indexOf('bad') === -1">
+          {{ review.rating }}: {{ review.text }} - by {{ review.reviewer }}
+        </div>
       </li>
     </ul>
   </div>
@@ -30,7 +32,8 @@ export default {
       reviews: [
         { text: "Vue.js is cool", rating: 5, reviewer: "Burton Wax" },
         { text: "Vue.js is great", rating: 4, reviewer: "Emily Post" },
-        { text: "I like checkers", rating: 1, reviewer: "Angela Pearson" }
+        { text: "I like checkers", rating: 1, reviewer: "Angela Pearson" },
+        { text: "Vue.js is bad", rating: 1, reviewer: "Vishnu No Please" }
       ],
       newReview: { text: "", rating: "", reviewer: "" }
     };
@@ -43,6 +46,11 @@ export default {
         this.reviews.push(this.newReview);
         this.newReview = { text: "", rating: "", reviewer: "" };
       }
+    },
+    deleteReview: function(inputReview) {
+      console.log("deleteReview...", inputReview.text);
+      var index = this.reviews.indexOf(inputReview);
+      this.reviews.splice(index, 1);
     }
   },
   computed: {}
