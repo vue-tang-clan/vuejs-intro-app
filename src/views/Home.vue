@@ -39,8 +39,10 @@ export default {
   methods: {
     addReview: function() {
       console.log("nice...", this.newReview);
-      this.reviews.push(this.newReview);
-      this.newReview = { text: "", rating: "", reviewer: "" };
+      if (this.newReview.text) {
+        this.reviews.push(this.newReview);
+        this.newReview = { text: "", rating: "", reviewer: "" };
+      }
     }
   },
   computed: {}
